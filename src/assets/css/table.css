@@ -1,0 +1,13 @@
+.table {
+    width: "100%"; 
+    border: "1px solid black";
+}
+
+tr:first-of-type{
+    font-weight: bold;
+}
+
+tr:last-of-type {
+    font-weight: bold;
+}
+
