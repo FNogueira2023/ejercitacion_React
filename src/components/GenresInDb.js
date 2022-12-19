@@ -1,93 +1,53 @@
-import React from "react";
+import React, { Component } from 'react';
+import Genre from './Genre';
 
-function GenresInDb() {
-    return (
-        <React.Fragment>
-            {/*<!-- Genres in DB -->*/}
-            <div className="col-lg-6 mb-4">
-                <div className="card shadow mb-4">
-                    <div className="card-header py-3">
-                        <h5 className="m-0 font-weight-bold text-gray-800">Genres in Data Base</h5>
-                    </div>
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Acción
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Animación
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Aventura
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Ciencia Ficción
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Comedia
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Documental
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Drama
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Fantasia
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Infantiles
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Musical
-                                    </div>
-                                </div>
-                            </div>
+class GenresInDb extends Component {
 
+    constructor() {
+        super()
+        this.state = {
+            genresList: []
+        }
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:3001/api/genres")
+            .then((respuesta) => respuesta.json())
+            .then((genres) => {
+                this.setState({ genresList: genres.data });
+            })
+            .catch((error) => console.log(error));
+    }
+
+    fondo() {
+        let caja = document.querySelector(".fondoCaja")
+        caja.classList.toggle("bg-secondary")
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                {/*<!-- Categories in DB -->*/}
+                <div className="col-lg-6 mb-4">
+                    <div className="card shadow mb-4">
+                        <div className="card-header py-3">
+                            <h6 className="m-0 font-weight-bold text-gray-800" onMouseOver={() => { this.fondo() }}>Genres in Data Base</h6>
+                        </div>
+
+                        <div className="card-body fondoCaja">
+                            <div className="row">
+                                {
+                                    this.state.genresList.map((genre, index) => {
+                                        return <Genre  {...genre} key={index} />
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </React.Fragment>
-    )
-}
 
+            </React.Fragment>
+        )
+    }
+}
 export default GenresInDb;

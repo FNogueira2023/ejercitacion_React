@@ -6,11 +6,11 @@ function Row(props) {
     return (
         <React.Fragment>
             <tr>
-                <td>{props.cell1}</td>
-                <td>{props.cell2}</td>
-                <td>{props.cell3}</td>
-                <td>{props.cell4}</td>
-                <td>{props.cell5}</td>
+                <td>{props.id}</td>
+                <td>{props.title}</td>
+                <td>{props.rating}</td>
+                <td>{props.awards}</td>
+                <td>{props.length}</td>
             </tr>
         </React.Fragment>
     )
